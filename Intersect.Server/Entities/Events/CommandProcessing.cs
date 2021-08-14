@@ -1592,7 +1592,7 @@ namespace Intersect.Server.Entities.Events
             if (player != null && input.Contains("\\"))
             {
                 var sb = new StringBuilder(input);
-                var time = Time.GetTime();
+                var time = Time.GameTime;
                 var replacements = new Dictionary<string, string>()
                 {
                     { Strings.Events.playernamecommand, player.Name },

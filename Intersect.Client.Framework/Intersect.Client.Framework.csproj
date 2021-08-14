@@ -254,6 +254,7 @@
     <Compile Include="Gwen\Input\IntersectInput.cs" />
     <Compile Include="Gwen\Renderer\IntersectRenderer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utilities\ClientGameTime.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

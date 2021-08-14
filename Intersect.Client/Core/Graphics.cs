@@ -7,6 +7,7 @@ using Intersect.Client.Framework.Entities;
 using Intersect.Client.Framework.File_Management;
 using Intersect.Client.Framework.GenericClasses;
 using Intersect.Client.Framework.Graphics;
+using Intersect.Client.Framework.Utilities;
 using Intersect.Client.General;
 using Intersect.Client.Maps;
 using Intersect.Configuration;
@@ -895,10 +896,7 @@ namespace Intersect.Client.Core
                 DrawGameTexture(
                     Renderer.GetWhiteTexture(), new FloatRect(0, 0, 1, 1),
                     new FloatRect(0, 0, sDarknessTexture.GetWidth(), sDarknessTexture.GetHeight()),
-                    new Color(
-                        (int) Time.GetTintColor().A, (int) Time.GetTintColor().R, (int) Time.GetTintColor().G,
-                        (int) Time.GetTintColor().B
-                    ), sDarknessTexture, GameBlendModes.None
+                    ClientGameTime.Global.Tint, sDarknessTexture, GameBlendModes.None
                 );
             }
 

@@ -1763,25 +1763,24 @@ namespace Intersect.Server.Networking
         }
 
         //TimePacket
-        public static void SendTimeToAll()
-        {
-            SendDataToAllPlayers(
-                new TimePacket(
-                    Time.GetTime(), TimeBase.GetTimeBase().SyncTime ? 1 : TimeBase.GetTimeBase().Rate,
-                    Time.GetTimeColor()
-                )
-            );
-        }
+        public static void SendTimeToAll() => SendTimeTo(default);
 
         //TimePacket
         public static void SendTimeTo(Client client)
         {
-            client?.Send(
-                new TimePacket(
-                    Time.GetTime(), TimeBase.GetTimeBase().SyncTime ? 1 : TimeBase.GetTimeBase().Rate,
-                    Time.GetTimeColor()
-                )
+            var packet = new TimePacket(
+                Time.GameTime, TimeBase.GetTimeBase().SyncTime ? 1 : TimeBase.GetTimeBase().Rate,
+                Time.Color
             );
+
+            if (client == default)
+            {
+                SendDataToAll(packet);
+            }
+            else
+            {
+                client.Send(packet);
+            }
         }
 
         //PartyPacket

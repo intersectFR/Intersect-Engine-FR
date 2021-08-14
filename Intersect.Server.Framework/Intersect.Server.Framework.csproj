@@ -46,6 +46,7 @@
     <Compile Include="Plugins\Helpers\IServerLifecycleHelper.cs" />
     <Compile Include="Plugins\IServerPluginContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utilities\ServerGameTime.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Intersect %28Core%29\Intersect %28Core%29.csproj">

@@ -1,9 +1,7 @@
 ﻿namespace Intersect
 {
-
     public class ColorF
     {
-
         public ColorF()
         {
         }
@@ -32,6 +30,10 @@
 
         public float B { get; set; }
 
+        public ColorF Clone() => new ColorF(A, R, G, B);
+        
+        public Color ToColor() => new Color((int) A, (int) R, (int) G, (int) B);
+
         public static ColorF White => new ColorF(255, 255, 255, 255);
 
         public static ColorF Black => new ColorF(255, 0, 0, 0);
@@ -52,16 +54,14 @@
 
         public static ColorF Magenta => new ColorF(255, 255, 0, 255);
 
-        public byte GetHue()
-        {
-            return 0;
-        }
+        public byte GetHue() => 0;
 
-        public static ColorF FromArgb(float a, float r, float g, float b)
-        {
-            return new ColorF(a, r, g, b);
-        }
+        public static ColorF FromArgb(float a, float r, float g, float b) => new ColorF(a, r, g, b);
 
+        public static ColorF FromColor(Color color) => color == default ? default : new ColorF(color.A, color.R, color.G, color.B);
+
+        public static implicit operator ColorF(Color color) => FromColor(color);
+
+        public static implicit operator Color(ColorF colorF) => colorF?.ToColor();
     }
-
 }

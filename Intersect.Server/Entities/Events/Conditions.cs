@@ -314,7 +314,7 @@ namespace Intersect.Server.Entities.Events
                 condition.Ranges[0] < 1440 / TimeBase.GetTimeBase().RangeInterval &&
                 condition.Ranges[1] < 1440 / TimeBase.GetTimeBase().RangeInterval)
             {
-                return Time.GetTimeRange() >= condition.Ranges[0] && Time.GetTimeRange() <= condition.Ranges[1];
+                return Time.TimeRange >= condition.Ranges[0] && Time.TimeRange <= condition.Ranges[1];
             }
 
             return true;

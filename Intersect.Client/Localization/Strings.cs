@@ -637,6 +637,8 @@ namespace Intersect.Client.Localization
 
             public static LocalizedString time = @"Time: {00}";
 
+            public static LocalizedString TimeFormat = @"h:mm:ss tt";
+
             public static LocalizedString title = @"Debug";
 
             public static LocalizedString x = @"X: {00}";

@@ -1,4 +1,6 @@
-﻿using Intersect.Client.Core;
+﻿using System.Globalization;
+
+using Intersect.Client.Core;
 using Intersect.Client.Framework.Graphics;
 using Intersect.Client.Framework.Gwen;
 using Intersect.Client.Framework.Gwen.Control;
@@ -7,6 +9,8 @@ using Intersect.Client.Localization;
 using Intersect.Client.Maps;
 using Intersect.Extensions;
 using System.Linq;
+
+using Intersect.Utilities;
 
 namespace Intersect.Client.Interface.Game
 {
@@ -131,7 +135,9 @@ namespace Intersect.Client.Interface.Game
             mMapsDrawnLabel.Text = Strings.Debug.mapsdrawn.ToString(Graphics.MapsDrawn);
             mEntitiesDrawnLabel.Text = Strings.Debug.entitiesdrawn.ToString(+Graphics.EntitiesDrawn);
             mLightsDrawnLabel.Text = Strings.Debug.lightsdrawn.ToString(Graphics.LightsDrawn);
-            mTimeLabel.Text = Strings.Debug.time.ToString(Time.GetTime());
+            mTimeLabel.Text = Strings.Debug.time.ToString(
+                GameTime.Global.ToString(Strings.Debug.TimeFormat, DateTimeFormatInfo.CurrentInfo)
+            );
         }
 
         public void Show()

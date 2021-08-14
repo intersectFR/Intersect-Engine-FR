@@ -12,6 +12,10 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
+using Intersect.Client.Framework.Utilities;
+using Intersect.Client.General;
+using Intersect.Utilities;
+
 namespace Intersect.Client.Core
 {
 
@@ -36,6 +40,8 @@ namespace Intersect.Client.Core
                     parserSettings.IgnoreUnknownArguments = true;
                 }
             );
+
+            FactoryRegistry<GameTime>.RegisterFactory(new ClientGameTimeFactory());
 
             var logger = Log.Default;
             var packetTypeRegistry = new PacketTypeRegistry(logger);

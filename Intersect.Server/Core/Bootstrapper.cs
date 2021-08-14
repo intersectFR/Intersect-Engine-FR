@@ -289,7 +289,7 @@ namespace Intersect.Server.Core
             Console.WriteLine();
 
             Console.WriteLine(Strings.Commandoutput.playercount.ToString(Player.Count()));
-            Console.WriteLine(Strings.Commandoutput.gametime.ToString(Time.GetTime().ToString("F")));
+            Console.WriteLine(Strings.Commandoutput.gametime.ToString(Time.GameTime.ToString("F")));
 
             Time.Update();
 

@@ -45,20 +45,16 @@ namespace Intersect.Utilities
         public long TicksUtc
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get
-            {
-                var tickCount = Environment.TickCount;
-                if (tickCount == mLastTicks)
-                {
-                    return mLastDateTime.Ticks;
-                }
+            get => Now.Ticks;
+        }
 
-                var now = DateTime.UtcNow;
-                mLastTicks = tickCount;
-                mLastDateTime = now;
-
-                return now.Ticks;
-            }
+        /// <summary>
+        /// Gets the current time.
+        /// </summary>
+        public DateTime Now
+        {
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            get => Update();
         }
 
         /// <summary>
@@ -86,6 +82,21 @@ namespace Intersect.Utilities
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             get => TicksUtc / TimeSpan.TicksPerMillisecond;
+        }
+
+        private DateTime Update()
+        {
+            var tickCount = Environment.TickCount;
+            if (tickCount == mLastTicks)
+            {
+                return mLastDateTime;
+            }
+
+            var now = DateTime.UtcNow;
+            mLastTicks = tickCount;
+            mLastDateTime = now;
+
+            return mLastDateTime;
         }
 
         /// <summary>

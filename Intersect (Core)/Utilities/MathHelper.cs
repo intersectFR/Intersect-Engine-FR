@@ -55,6 +55,36 @@ namespace Intersect.Utilities
             return Math.Min(Math.Max(value, minimum), maximum);
         }
 
+        public static float Lerp(float a, float b, float amount)
+        {
+            if (a < b)
+            {
+                if (a + amount > b)
+                {
+                    a = b;
+                }
+                else
+                {
+                    a += amount;
+                }
+            }
+
+            if (!(a > b))
+            {
+                return a;
+            }
+
+            if (a - amount < b)
+            {
+                a = b;
+            }
+            else
+            {
+                a -= amount;
+            }
+
+            return a;
+        }
     }
 
 }
