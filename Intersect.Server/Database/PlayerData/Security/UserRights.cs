@@ -11,7 +11,7 @@ using Newtonsoft.Json;
 namespace Intersect.Server.Database.PlayerData.Security
 {
 
-    public class UserRights
+    public sealed class UserRights : IComparable<UserRights>, IEquatable<UserRights>
     {
 
         private static readonly Type ApiRolesType = typeof(ApiRoles);
@@ -85,12 +85,32 @@ namespace Intersect.Server.Database.PlayerData.Security
             return !(b1 == b2);
         }
 
+        protected int ComputePowerScore()
+        {
+            var score = 0;
+            score |= (1 << 0) & Convert.ToInt32(Editor);
+            score |= (1 << 1) & Convert.ToInt32(Mute);
+            score |= (1 << 2) & Convert.ToInt32(Kick);
+            score |= (1 << 3) & Convert.ToInt32(Ban);
+            return score;
+        }
+
+        public int CompareTo(UserRights other)
+        {
+            if (other == default)
+            {
+                return 1;
+            }
+
+            return ComputePowerScore() - other.ComputePowerScore();
+        }
+
         public override bool Equals(object obj)
         {
             return obj is UserRights userRights && Equals(userRights);
         }
 
-        protected bool Equals(UserRights other)
+        public bool Equals(UserRights other)
         {
             var permissions = EnumeratePermissions();
             var otherPermissions = other.EnumeratePermissions();
@@ -128,7 +148,6 @@ namespace Intersect.Server.Database.PlayerData.Security
 
             return userRights.ToImmutableList();
         }
-
     }
 
     public static class AccessExtensions
