@@ -1,4 +1,4 @@
-﻿using Intersect.Client.Framework.GenericClasses;
+using Intersect.Client.Framework.GenericClasses;
 using Intersect.Client.Framework.Graphics;
 using Intersect.Client.Framework.Gwen.Control;
 using Intersect.Client.Framework.Gwen.ControlInternal;
@@ -40,13 +40,13 @@ namespace Intersect.Client.Framework.Gwen.Skin
 
             public Bordered Inactive;
 
-            public Single Close;
+            public SingleElement Close;
 
-            public Single CloseHover;
+            public SingleElement CloseHover;
 
-            public Single CloseDown;
+            public SingleElement CloseDown;
 
-            public Single CloseDisabled;
+            public SingleElement CloseDisabled;
 
         }
 
@@ -56,18 +56,18 @@ namespace Intersect.Client.Framework.Gwen.Skin
             public struct _Active
             {
 
-                public Single Normal;
+                public SingleElement Normal;
 
-                public Single Checked;
+                public SingleElement Checked;
 
             }
 
             public struct _Disabled
             {
 
-                public Single Normal;
+                public SingleElement Normal;
 
-                public Single Checked;
+                public SingleElement Checked;
 
             }
 
@@ -83,18 +83,18 @@ namespace Intersect.Client.Framework.Gwen.Skin
             public struct _Active
             {
 
-                public Single Normal;
+                public SingleElement Normal;
 
-                public Single Checked;
+                public SingleElement Checked;
 
             }
 
             public struct _Disabled
             {
 
-                public Single Normal;
+                public SingleElement Normal;
 
-                public Single Checked;
+                public SingleElement Checked;
 
             }
 
@@ -120,9 +120,9 @@ namespace Intersect.Client.Framework.Gwen.Skin
 
             public Bordered Background;
 
-            public Single Minus;
+            public SingleElement Minus;
 
-            public Single Plus;
+            public SingleElement Plus;
 
         }
 
@@ -178,9 +178,9 @@ namespace Intersect.Client.Framework.Gwen.Skin
         public struct _Menu
         {
 
-            public Single RightArrow;
+            public SingleElement RightArrow;
 
-            public Single Check;
+            public SingleElement Check;
 
             public Bordered Strip;
 
@@ -222,13 +222,13 @@ namespace Intersect.Client.Framework.Gwen.Skin
                 public struct _Button
                 {
 
-                    public Single Normal;
+                    public SingleElement Normal;
 
-                    public Single Hover;
+                    public SingleElement Hover;
 
-                    public Single Down;
+                    public SingleElement Down;
 
-                    public Single Disabled;
+                    public SingleElement Disabled;
 
                 }
 
@@ -242,26 +242,26 @@ namespace Intersect.Client.Framework.Gwen.Skin
                 public struct _H
                 {
 
-                    public Single Normal;
+                    public SingleElement Normal;
 
-                    public Single Hover;
+                    public SingleElement Hover;
 
-                    public Single Down;
+                    public SingleElement Down;
 
-                    public Single Disabled;
+                    public SingleElement Disabled;
 
                 }
 
                 public struct _V
                 {
 
-                    public Single Normal;
+                    public SingleElement Normal;
 
-                    public Single Hover;
+                    public SingleElement Hover;
 
-                    public Single Down;
+                    public SingleElement Down;
 
-                    public Single Disabled;
+                    public SingleElement Disabled;
 
                 }
 
@@ -294,26 +294,26 @@ namespace Intersect.Client.Framework.Gwen.Skin
                 public struct _Up
                 {
 
-                    public Single Normal;
+                    public SingleElement Normal;
 
-                    public Single Hover;
+                    public SingleElement Hover;
 
-                    public Single Down;
+                    public SingleElement Down;
 
-                    public Single Disabled;
+                    public SingleElement Disabled;
 
                 }
 
                 public struct _Down
                 {
 
-                    public Single Normal;
+                    public SingleElement Normal;
 
-                    public Single Hover;
+                    public SingleElement Hover;
 
-                    public Single Down;
+                    public SingleElement Down;
 
-                    public Single Disabled;
+                    public SingleElement Disabled;
 
                 }
 
@@ -536,15 +536,15 @@ namespace Intersect.Client.Framework.Gwen.Skin
             mTextures.Window.Normal = new Bordered(mTexture, 0, 0, 127, 127, new Margin(8, 32, 8, 8));
             mTextures.Window.Inactive = new Bordered(mTexture, 128, 0, 127, 127, new Margin(8, 32, 8, 8));
 
-            mTextures.CheckBox.Active.Checked = new Single(mTexture, 448, 32, 15, 15);
-            mTextures.CheckBox.Active.Normal = new Single(mTexture, 464, 32, 15, 15);
-            mTextures.CheckBox.Disabled.Normal = new Single(mTexture, 448, 48, 15, 15);
-            mTextures.CheckBox.Disabled.Normal = new Single(mTexture, 464, 48, 15, 15);
+            mTextures.CheckBox.Active.Checked = new SingleElement(mTexture, 448, 32, 15, 15);
+            mTextures.CheckBox.Active.Normal = new SingleElement(mTexture, 464, 32, 15, 15);
+            mTextures.CheckBox.Disabled.Normal = new SingleElement(mTexture, 448, 48, 15, 15);
+            mTextures.CheckBox.Disabled.Normal = new SingleElement(mTexture, 464, 48, 15, 15);
 
-            mTextures.RadioButton.Active.Checked = new Single(mTexture, 448, 64, 15, 15);
-            mTextures.RadioButton.Active.Normal = new Single(mTexture, 464, 64, 15, 15);
-            mTextures.RadioButton.Disabled.Normal = new Single(mTexture, 448, 80, 15, 15);
-            mTextures.RadioButton.Disabled.Normal = new Single(mTexture, 464, 80, 15, 15);
+            mTextures.RadioButton.Active.Checked = new SingleElement(mTexture, 448, 64, 15, 15);
+            mTextures.RadioButton.Active.Normal = new SingleElement(mTexture, 464, 64, 15, 15);
+            mTextures.RadioButton.Disabled.Normal = new SingleElement(mTexture, 448, 80, 15, 15);
+            mTextures.RadioButton.Disabled.Normal = new SingleElement(mTexture, 464, 80, 15, 15);
 
             mTextures.TextBox.Normal = new Bordered(mTexture, 0, 150, 127, 21, Margin.Four);
             mTextures.TextBox.Focus = new Bordered(mTexture, 0, 172, 127, 21, Margin.Four);
@@ -554,8 +554,8 @@ namespace Intersect.Client.Framework.Gwen.Skin
             mTextures.Menu.BackgroundWithMargin = new Bordered(mTexture, 128, 128, 127, 63, new Margin(24, 8, 8, 8));
             mTextures.Menu.Background = new Bordered(mTexture, 128, 192, 127, 63, Margin.Eight);
             mTextures.Menu.Hover = new Bordered(mTexture, 128, 256, 127, 31, Margin.Eight);
-            mTextures.Menu.RightArrow = new Single(mTexture, 464, 112, 15, 15);
-            mTextures.Menu.Check = new Single(mTexture, 448, 112, 15, 15);
+            mTextures.Menu.RightArrow = new SingleElement(mTexture, 464, 112, 15, 15);
+            mTextures.Menu.Check = new SingleElement(mTexture, 448, 112, 15, 15);
 
             mTextures.Tab.Control = new Bordered(mTexture, 0, 256, 127, 127, Margin.Eight);
             mTextures.Tab.Bottom.Active = new Bordered(mTexture, 0, 416, 63, 31, Margin.Eight);
@@ -568,10 +568,10 @@ namespace Intersect.Client.Framework.Gwen.Skin
             mTextures.Tab.Right.Inactive = new Bordered(mTexture, 96 + 128, 384, 31, 63, Margin.Eight);
             mTextures.Tab.HeaderBar = new Bordered(mTexture, 128, 352, 127, 31, Margin.Four);
 
-            mTextures.Window.Close = new Single(mTexture, 0, 224, 24, 24);
-            mTextures.Window.CloseHover = new Single(mTexture, 32, 224, 24, 24);
-            mTextures.Window.CloseHover = new Single(mTexture, 64, 224, 24, 24);
-            mTextures.Window.CloseHover = new Single(mTexture, 96, 224, 24, 24);
+            mTextures.Window.Close = new SingleElement(mTexture, 0, 224, 24, 24);
+            mTextures.Window.CloseHover = new SingleElement(mTexture, 32, 224, 24, 24);
+            mTextures.Window.CloseHover = new SingleElement(mTexture, 64, 224, 24, 24);
+            mTextures.Window.CloseHover = new SingleElement(mTexture, 96, 224, 24, 24);
 
             mTextures.Scroller.TrackV = new Bordered(mTexture, 384, 208, 15, 127, Margin.Four);
             mTextures.Scroller.ButtonVNormal = new Bordered(mTexture, 384 + 16, 208, 15, 127, Margin.Four);
@@ -590,8 +590,8 @@ namespace Intersect.Client.Framework.Gwen.Skin
             mTextures.Scroller.Button.Down = new Bordered[4];
 
             mTextures.Tree.Background = new Bordered(mTexture, 256, 128, 127, 127, new Margin(16, 16, 16, 16));
-            mTextures.Tree.Plus = new Single(mTexture, 448, 96, 15, 15);
-            mTextures.Tree.Minus = new Single(mTexture, 464, 96, 15, 15);
+            mTextures.Tree.Plus = new SingleElement(mTexture, 448, 96, 15, 15);
+            mTextures.Tree.Minus = new SingleElement(mTexture, 464, 96, 15, 15);
 
             mTextures.Input.Button.Normal = new Bordered(mTexture, 480, 0, 31, 31, Margin.Eight);
             mTextures.Input.Button.Hovered = new Bordered(mTexture, 480, 32, 31, 31, Margin.Eight);
@@ -620,32 +620,32 @@ namespace Intersect.Client.Framework.Gwen.Skin
             mTextures.Input.ComboBox.Down = new Bordered(mTexture, 384, 336 + 64, 127, 31, new Margin(8, 8, 32, 8));
             mTextures.Input.ComboBox.Disabled = new Bordered(mTexture, 384, 336 + 96, 127, 31, new Margin(8, 8, 32, 8));
 
-            mTextures.Input.ComboBox.Button.Normal = new Single(mTexture, 496, 272, 15, 15);
-            mTextures.Input.ComboBox.Button.Hover = new Single(mTexture, 496, 272 + 16, 15, 15);
-            mTextures.Input.ComboBox.Button.Down = new Single(mTexture, 496, 272 + 32, 15, 15);
-            mTextures.Input.ComboBox.Button.Disabled = new Single(mTexture, 496, 272 + 48, 15, 15);
+            mTextures.Input.ComboBox.Button.Normal = new SingleElement(mTexture, 496, 272, 15, 15);
+            mTextures.Input.ComboBox.Button.Hover = new SingleElement(mTexture, 496, 272 + 16, 15, 15);
+            mTextures.Input.ComboBox.Button.Down = new SingleElement(mTexture, 496, 272 + 32, 15, 15);
+            mTextures.Input.ComboBox.Button.Disabled = new SingleElement(mTexture, 496, 272 + 48, 15, 15);
 
-            mTextures.Input.UpDown.Up.Normal = new Single(mTexture, 384, 112, 7, 7);
-            mTextures.Input.UpDown.Up.Hover = new Single(mTexture, 384 + 8, 112, 7, 7);
-            mTextures.Input.UpDown.Up.Down = new Single(mTexture, 384 + 16, 112, 7, 7);
-            mTextures.Input.UpDown.Up.Disabled = new Single(mTexture, 384 + 24, 112, 7, 7);
-            mTextures.Input.UpDown.Down.Normal = new Single(mTexture, 384, 120, 7, 7);
-            mTextures.Input.UpDown.Down.Hover = new Single(mTexture, 384 + 8, 120, 7, 7);
-            mTextures.Input.UpDown.Down.Down = new Single(mTexture, 384 + 16, 120, 7, 7);
-            mTextures.Input.UpDown.Down.Disabled = new Single(mTexture, 384 + 24, 120, 7, 7);
+            mTextures.Input.UpDown.Up.Normal = new SingleElement(mTexture, 384, 112, 7, 7);
+            mTextures.Input.UpDown.Up.Hover = new SingleElement(mTexture, 384 + 8, 112, 7, 7);
+            mTextures.Input.UpDown.Up.Down = new SingleElement(mTexture, 384 + 16, 112, 7, 7);
+            mTextures.Input.UpDown.Up.Disabled = new SingleElement(mTexture, 384 + 24, 112, 7, 7);
+            mTextures.Input.UpDown.Down.Normal = new SingleElement(mTexture, 384, 120, 7, 7);
+            mTextures.Input.UpDown.Down.Hover = new SingleElement(mTexture, 384 + 8, 120, 7, 7);
+            mTextures.Input.UpDown.Down.Down = new SingleElement(mTexture, 384 + 16, 120, 7, 7);
+            mTextures.Input.UpDown.Down.Disabled = new SingleElement(mTexture, 384 + 24, 120, 7, 7);
 
             mTextures.ProgressBar.Back = new Bordered(mTexture, 384, 0, 31, 31, Margin.Eight);
             mTextures.ProgressBar.Front = new Bordered(mTexture, 384 + 32, 0, 31, 31, Margin.Eight);
 
-            mTextures.Input.Slider.H.Normal = new Single(mTexture, 416, 32, 15, 15);
-            mTextures.Input.Slider.H.Hover = new Single(mTexture, 416, 32 + 16, 15, 15);
-            mTextures.Input.Slider.H.Down = new Single(mTexture, 416, 32 + 32, 15, 15);
-            mTextures.Input.Slider.H.Disabled = new Single(mTexture, 416, 32 + 48, 15, 15);
+            mTextures.Input.Slider.H.Normal = new SingleElement(mTexture, 416, 32, 15, 15);
+            mTextures.Input.Slider.H.Hover = new SingleElement(mTexture, 416, 32 + 16, 15, 15);
+            mTextures.Input.Slider.H.Down = new SingleElement(mTexture, 416, 32 + 32, 15, 15);
+            mTextures.Input.Slider.H.Disabled = new SingleElement(mTexture, 416, 32 + 48, 15, 15);
 
-            mTextures.Input.Slider.V.Normal = new Single(mTexture, 416 + 16, 32, 15, 15);
-            mTextures.Input.Slider.V.Hover = new Single(mTexture, 416 + 16, 32 + 16, 15, 15);
-            mTextures.Input.Slider.V.Down = new Single(mTexture, 416 + 16, 32 + 32, 15, 15);
-            mTextures.Input.Slider.V.Disabled = new Single(mTexture, 416 + 16, 32 + 48, 15, 15);
+            mTextures.Input.Slider.V.Normal = new SingleElement(mTexture, 416 + 16, 32, 15, 15);
+            mTextures.Input.Slider.V.Hover = new SingleElement(mTexture, 416 + 16, 32 + 16, 15, 15);
+            mTextures.Input.Slider.V.Down = new SingleElement(mTexture, 416 + 16, 32 + 32, 15, 15);
+            mTextures.Input.Slider.V.Disabled = new SingleElement(mTexture, 416 + 16, 32 + 48, 15, 15);
 
             mTextures.CategoryList.Outer = new Bordered(mTexture, 256, 384, 63, 63, Margin.Eight);
             mTextures.CategoryList.Inner = new Bordered(mTexture, 256 + 64, 384, 63, 63, new Margin(8, 21, 8, 8));
