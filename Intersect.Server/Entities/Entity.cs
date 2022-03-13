@@ -1,11 +1,6 @@
-﻿using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Net.Http.Headers;
-using System.Threading;
-using System.Web.UI;
+
 using Intersect.Enums;
 using Intersect.GameObjects;
 using Intersect.GameObjects.Events;
@@ -46,7 +41,7 @@ namespace Intersect.Server.Entities
         //Initialization
         public Entity(Guid instanceId)
         {
-            if (!(this is EventPageInstance) && !(this is Projectile))
+            if (this is not EventPageInstance && this is not Projectile)
             {
                 for (var i = 0; i < (int)Stats.StatCount; i++)
                 {
@@ -530,7 +525,7 @@ namespace Intersect.Server.Entities
                 }
 
                 //If this is an npc or other event.. if any global page exists that isn't passable then don't walk here!
-                if (!(this is Player))
+                if (this is not Player)
                 {
                     foreach (var evt in mapInstance.GlobalEventInstances)
                     {
@@ -1386,7 +1381,7 @@ namespace Intersect.Server.Entities
                 }
             }
 
-            if (targetPlayer == null && !(target is Npc) || target.IsDead())
+            if (targetPlayer == null && target is not Npc || target.IsDead())
             {
                 return;
             }
@@ -1716,7 +1711,7 @@ namespace Intersect.Server.Entities
             }
 
             //If the enemy is a resource, the original base damage value will be used on "Calculate Damages", if not, we need change...
-            if (!(enemy is Resource))
+            if (enemy is not Resource)
             {
                 baseDamage = Formulas.CalculateDamage(
                 baseDamage, damageType, scalingStat, scaling, critMultiplier, this, enemy
