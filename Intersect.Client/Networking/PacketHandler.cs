@@ -1,4 +1,4 @@
-﻿using Intersect.Client.Core;
+using Intersect.Client.Core;
 using Intersect.Client.Entities;
 using Intersect.Client.Entities.Events;
 using Intersect.Client.Entities.Projectiles;
@@ -88,7 +88,7 @@ namespace Intersect.Client.Networking
                 Timing.Global.Synchronize(timedPacket.UTC, timedPacket.Offset);
             }
 
-            if (!(packet is IntersectPacket))
+            if (packet is not IntersectPacket)
             {
                 return false;
             }
@@ -372,7 +372,7 @@ namespace Intersect.Client.Networking
                 {
                     if (entity.Value.MapId == entities.Key && !entities.Value.Contains(entity.Key))
                     {
-                        if (!Globals.EntitiesToDispose.Contains(entity.Key) && entity.Value != Globals.Me && !(entity.Value is Projectile))
+                        if (!Globals.EntitiesToDispose.Contains(entity.Key) && entity.Value != Globals.Me && entity.Value is not Projectile)
                         {
                             Globals.EntitiesToDispose.Add(entity.Key);
                         }

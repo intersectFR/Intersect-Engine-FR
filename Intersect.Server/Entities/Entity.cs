@@ -24,10 +24,6 @@ namespace Intersect.Server.Entities
 
     public partial class Entity : IDisposable
     {
-
-        //Instance Values
-        private Guid _id;
-
         [JsonProperty("MaxVitals"), NotMapped] private int[] _maxVital = new int[(int) Vitals.VitalCount];
 
         [NotMapped, JsonIgnore] public Stat[] Stat = new Stat[(int) Stats.StatCount];
@@ -151,9 +147,9 @@ namespace Intersect.Server.Entities
         [NotMapped]
         public Color NameColor { get; set; }
 
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Column(Order = 0)]
-        public Guid Id { get => _id; set => _id = value; }
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public Guid Id { get; set; } = Guid.NewGuid();
 
         [NotMapped]
         public Label HeaderLabel { get; set; }
@@ -1691,7 +1687,7 @@ namespace Intersect.Server.Entities
         {
             var damagingAttack = baseDamage > 0;
             var secondaryDamagingAttack = secondaryDamage > 0;
-            
+
             if (enemy == null)
             {
                 return;
@@ -2331,7 +2327,7 @@ namespace Intersect.Server.Entities
                     return true;
                 }
 
-                myTile.Translate(2, 0); // Target Right 
+                myTile.Translate(2, 0); // Target Right
                 if (myTile.Matches(enemyTile))
                 {
                     return true;
@@ -2382,7 +2378,7 @@ namespace Intersect.Server.Entities
             {
                 return GetDistanceTo(target.Map, target.X, target.Y);
             }
-            //Something is null.. return a value that is out of range :) 
+            //Something is null.. return a value that is out of range :)
             return 9999;
         }
 
@@ -2407,7 +2403,7 @@ namespace Intersect.Server.Entities
                 return (int)Math.Sqrt(Math.Pow(x1 - x2, 2) + Math.Pow(y1 - y2, 2));
             }
 
-            //Something is null.. return a value that is out of range :) 
+            //Something is null.. return a value that is out of range :)
             return 9999;
         }
 
@@ -2563,7 +2559,7 @@ namespace Intersect.Server.Entities
                     DropItems(killer);
                 }
             }
-            
+
             var currentMap = MapInstance.Get(MapId);
             if (currentMap != null)
             {
@@ -2594,7 +2590,7 @@ namespace Intersect.Server.Entities
 
                 // Don't mess with the actual object.
                 var item = Items[n].Clone();
-                
+
                 var itemBase = ItemBase.Get(item.ItemId);
                 if (itemBase == null)
                 {
