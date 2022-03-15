@@ -7,12 +7,9 @@ namespace Intersect.Server.Database.PlayerData.Players
 {
     public class GuildVariable : Variable
     {
-        public GuildVariable() : this(Guid.Empty) { }
+        public GuildVariable() : base() { }
 
-        public GuildVariable(Guid id)
-        {
-            VariableId = id;
-        }
+        public GuildVariable(Guid id) : base(id) { }
 
         [NotMapped]
         public string VariableName => GuildVariableBase.GetName(VariableId);

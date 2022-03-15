@@ -8,8 +8,8 @@ namespace Intersect.Server.Database.Logging.Entities
 {
     public class TradeHistory
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Guid Id { get; private set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public Guid Id { get; private set; } = Guid.NewGuid();
 
         public Guid TradeId { get; set; }
 
