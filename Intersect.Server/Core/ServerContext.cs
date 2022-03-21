@@ -142,14 +142,7 @@ namespace Intersect.Server.Core
                     Log.Info("Shutting down the console thread..." + $" ({stopwatch.ElapsedMilliseconds}ms)");
                     if (!ThreadConsole.Join(1000))
                     {
-                        try
-                        {
-                            ThreadConsole.Abort();
-                        }
-                        catch (ThreadAbortException threadAbortException)
-                        {
-                            Log.Error(threadAbortException, $"{nameof(ThreadConsole)} aborted.");
-                        }
+                        ConsoleService.Dispose();
                     }
                 }
 
@@ -158,14 +151,7 @@ namespace Intersect.Server.Core
                     Log.Info("Shutting down the logic thread..." + $" ({stopwatch.ElapsedMilliseconds}ms)");
                     if (!ThreadLogic.Join(10000))
                     {
-                        try
-                        {
-                            ThreadLogic.Abort();
-                        }
-                        catch (ThreadAbortException threadAbortException)
-                        {
-                            Log.Error(threadAbortException, $"{nameof(ThreadLogic)} aborted.");
-                        }
+                        LogicService.Dispose();
                     }
                 }
 
