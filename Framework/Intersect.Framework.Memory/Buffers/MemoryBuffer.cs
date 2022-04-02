@@ -9,6 +9,8 @@ public class MemoryBuffer : Buffer
 {
     internal static int MaximumCapacity = int.MaxValue;
 
+    private readonly MemoryPool<byte> _memoryPool;
+
     private int _length;
     private IMemoryOwner<byte> _memoryOwner;
     private int _position;
@@ -50,8 +52,10 @@ public class MemoryBuffer : Buffer
         bool canRead,
         bool canSeek,
         bool canWrite,
-        int initialCapacity)
+        int initialCapacity,
+        MemoryPool<byte>? memoryPool = default)
     {
+        _memoryPool = memoryPool ?? MemoryPool<byte>.Shared;
         CanRead = canRead;
         CanSeek = canSeek;
         CanWrite = canWrite;
@@ -122,6 +126,7 @@ public class MemoryBuffer : Buffer
     /// </summary>
     /// <param name="capacity">the new capacity of the internal buffer in bytes</param>
     /// <exception cref="InvalidOperationException">failed to copy data from the old to new internal buffer</exception>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     protected void EnsureCapacity(int capacity)
     {
         if (Buffer.Length >= capacity)
@@ -129,7 +134,7 @@ public class MemoryBuffer : Buffer
             return;
         }
 
-        var newMemoryOwner = MemoryPool<byte>.Shared.Rent(capacity);
+        var newMemoryOwner = _memoryPool.Rent(capacity);
         if (!Buffer.IsEmpty && !Buffer.TryCopyTo(newMemoryOwner.Memory))
         {
             throw new InvalidOperationException("Failed to copy current buffer contents to new internal buffer.");
@@ -141,8 +146,13 @@ public class MemoryBuffer : Buffer
     }
 
     /// <inheritdoc/>
-    protected override ReadOnlySpan<byte> GetReadSpan(long length)
+    public override ReadOnlySpan<byte> GetReadSpan(long length)
     {
+        if (!CanRead)
+        {
+            throw new NotSupportedException();
+        }
+
         // Check if the internal buffer has enough remaining data
         var remaining = _length - _position;
         if (remaining < length)
@@ -156,8 +166,13 @@ public class MemoryBuffer : Buffer
     }
 
     /// <inheritdoc/>
-    protected override Span<byte> GetWriteSpan(long length)
+    public override Span<byte> GetWriteSpan(long length)
     {
+        if (!CanWrite)
+        {
+            throw new NotSupportedException();
+        }
+
         // Check if the internal buffer can hold the additional data
         var remainingInternal = MaximumCapacity - _position;
         if (remainingInternal < length)
@@ -169,99 +184,7 @@ public class MemoryBuffer : Buffer
 
         var span = Buffer.Span.Slice(_position, (int)length);
         _position += span.Length;
+        _length += span.Length;
         return span;
-    }
-
-    /// <inheritdoc/>
-    /// <exception cref="IndexOutOfRangeException">the buffer does not have 1 more byte to read</exception>
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public override int Read(out byte value)
-    {
-        // Check for buffer overflows
-        var remaining = _length - _position;
-        if (remaining < 1)
-        {
-            throw new IndexOutOfRangeException($"No remaining memory to read from.");
-        }
-
-        value = Buffer.Span[_position++];
-        return sizeof(byte);
-    }
-
-    /// <inheritdoc/>
-    /// <exception cref="ArgumentOutOfRangeException">the buffer does not have <paramref name="length"/> more bytes to read</exception>
-    /// <exception cref="InvalidOperationException">failed to copy data from the internal buffer to <paramref name="buffer"/></exception>
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public override int Read(Span<byte> buffer, int offset, int length)
-    {
-        // Check if the input buffer can store the read data
-        var availableInBuffer = buffer.Length - offset;
-        if (availableInBuffer < length)
-        {
-            throw new ArgumentOutOfRangeException(nameof(length), new IndexOutOfRangeParameters(buffer.Length, offset, length), $"The offset and length exceed the length of the input buffer.");
-        }
-
-        // Check if the internal buffer has enough remaining data
-        var remaining = _length - _position;
-        if (remaining < length)
-        {
-            throw new ArgumentOutOfRangeException(nameof(length), $"Tried to read {length} bytes, only {remaining} left in buffer.");
-        }
-
-        if (Buffer.Span.Slice(_position, length).TryCopyTo(buffer[offset..]))
-        {
-            _position += length;
-            return length;
-        }
-
-        throw new InvalidOperationException("Failed to copy data to destination buffer.");
-    }
-
-    /// <inheritdoc/>
-    /// <exception cref="IndexOutOfRangeException">the buffer cannot store or expand to fit 1 more byte</exception>
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public override int Write(byte value)
-    {
-        var remaining = MaximumCapacity - _position;
-        if (remaining < 1)
-        {
-            throw new IndexOutOfRangeException($"No remaining memory to write to.");
-        }
-
-        EnsureCapacity(_position + sizeof(byte));
-        Buffer.Span[_position++] = value;
-        _length = Math.Max(_position, _length);
-        return sizeof(byte);
-    }
-
-    /// <inheritdoc/>
-    /// <exception cref="ArgumentOutOfRangeException">the buffer cannot store or expand to fit <paramref name="length"/> more bytes</exception>
-    /// <exception cref="InvalidOperationException">failed to copy data from <paramref name="buffer"/> to the internal buffer</exception>
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public override int Write(ReadOnlySpan<byte> buffer, int offset, int length)
-    {
-        // Check if the input buffer contains the range specified by offset and length
-        var availableInBuffer = buffer.Length - offset;
-        if (availableInBuffer < length)
-        {
-            throw new ArgumentOutOfRangeException(nameof(length), new IndexOutOfRangeParameters(buffer.Length, offset, length), $"The offset and length exceed the length of the input buffer.");
-        }
-
-        // Check if the internal buffer can hold the additional data
-        var remainingInternal = MaximumCapacity - _position;
-        if (remainingInternal < length)
-        {
-            throw new ArgumentOutOfRangeException(nameof(length), length, $"The buffer cannot store {length} more bytes.");
-        }
-
-        EnsureCapacity(_position + length);
-        if (buffer.Slice(offset, length).TryCopyTo(Buffer.Span[_position..]))
-        {
-            _position += length;
-            _length = Math.Max(_position, _length);
-            return length;
-        }
-
-        throw new InvalidOperationException("Failed to copy data to internal buffer.");
     }
 }

@@ -5,12 +5,12 @@ using Intersect.Framework.Memory.Buffers;
 
 namespace Intersect.Framework.Networking.UdpSample;
 
-internal abstract class Connection : IConnection
+internal abstract class SampleConnection : IConnection
 {
     private readonly string name;
     private readonly Thread receiveThread;
 
-    protected Connection(string name)
+    protected SampleConnection(string name)
     {
         this.name = name;
         receiveThread = new Thread(ReceiveThread);

@@ -1,8 +1,10 @@
+using System.Net;
+
 using Intersect.Framework.Networking.Configuration;
 
 namespace Intersect.Framework.Networking;
 
-public abstract partial class ConnectionManager : IDisposable
+public abstract partial class ProtocolManager : IDisposable
 {
     private readonly Thread _dispatchThread;
     private readonly object _dispatchThreadLock;
@@ -10,7 +12,9 @@ public abstract partial class ConnectionManager : IDisposable
 
     private bool disposedValue;
 
-    protected ConnectionManager(
+    internal event ProtocoEventHandler OnProtocolEvent;
+
+    protected ProtocolManager(
         Network network,
         ConnectionConfiguration connectionConfiguration)
     {
@@ -23,16 +27,18 @@ public abstract partial class ConnectionManager : IDisposable
 
     public ConnectionConfiguration ConnectionConfiguration { get; }
 
-    private void RunDispatchThread()
-    {
-        while (!disposedValue && _network.State == NetworkState.Listening) ;
-    }
+    public abstract Connection CreateConnection(IPEndPoint remoteEndPoint);
 
     public abstract void Listen(CancellationToken cancellationToken);
 
     protected void OnReceive(ReadOnlySpan<byte> data)
     {
 
+    }
+
+    private void RunDispatchThread()
+    {
+        while (!disposedValue && _network.State == NetworkState.Listening) ;
     }
 
     protected virtual void Dispose(bool disposing)

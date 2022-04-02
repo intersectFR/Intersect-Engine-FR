@@ -4,8 +4,6 @@ namespace Intersect.Framework.Networking;
 
 public abstract class Connection : IDisposable
 {
-    private bool disposedValue;
-
     protected Connection(Network network, IPEndPoint remoteEndPoint)
     {
         Network = network;
@@ -14,25 +12,32 @@ public abstract class Connection : IDisposable
 
     public Id<Connection> Id { get; internal set; }
 
+    public bool IsDisposed { get; private set; }
+
     public IPEndPoint LocalEndPoint { get; }
 
     public Network Network { get; }
 
     public IPEndPoint RemoteEndPoint { get; }
 
+    public abstract bool TrySend(Message message);
+
     protected virtual void Dispose(bool disposing)
     {
-        if (!disposedValue)
+        if (IsDisposed)
         {
-            if (disposing)
-            {
-                // TODO: dispose managed state (managed objects)
-            }
-
-            // TODO: free unmanaged resources (unmanaged objects) and override finalizer
-            // TODO: set large fields to null
-            disposedValue = true;
+            throw new ObjectDisposedException($"{GetType().FullName}:{Id}");
         }
+
+        IsDisposed = true;
+
+        if (disposing)
+        {
+            // TODO: dispose managed state (managed objects)
+        }
+
+        // TODO: free unmanaged resources (unmanaged objects) and override finalizer
+        // TODO: set large fields to null
     }
 
     // // TODO: override finalizer only if 'Dispose(bool disposing)' has code to free unmanaged resources
@@ -48,6 +53,4 @@ public abstract class Connection : IDisposable
         Dispose(disposing: true);
         GC.SuppressFinalize(this);
     }
-
-    public abstract bool TrySendData(ReadOnlySpan<byte> data);
 }

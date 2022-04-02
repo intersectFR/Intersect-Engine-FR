@@ -3,22 +3,22 @@ using Intersect.Framework.Networking.Udp;
 
 namespace Intersect.Framework.Networking;
 
-internal delegate Task<ConnectionManager> CreateConnectionManager(
+internal delegate Task<ProtocolManager> CreateConnectionManager(
         Network network,
         ConnectionConfiguration connectionConfiguration,
         CancellationToken cancellationToken);
 
-public abstract partial class ConnectionManager
+public abstract partial class ProtocolManager
 {
     private static readonly CreateConnectionManager[] _factoryMethods;
 
-    static ConnectionManager()
+    static ProtocolManager()
     {
         _factoryMethods = new CreateConnectionManager[Enum.GetValues(typeof(ConnectionProtocol)).Length];
         _factoryMethods[(int)ConnectionProtocol.Udp] = UdpConnectionManager.Create;
     }
 
-    public static Task<ConnectionManager> CreateConnectionManager(
+    public static Task<ProtocolManager> CreateConnectionManager(
         Network network,
         ConnectionConfiguration connectionConfiguration,
         CancellationToken cancellationToken)

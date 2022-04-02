@@ -27,6 +27,40 @@ public class MemoryBufferTests
         _memoryBuffer?.Dispose();
     }
 
+    [Test]
+    public void TestReadWriteT()
+    {
+        Assert.AreEqual(sizeof(int), _memoryBuffer.Write<int>(int.MaxValue));
+        Assert.AreEqual(sizeof(int), _memoryBuffer.Write<int>(int.MinValue));
+        Assert.AreEqual(new byte[] { 0xff, 0xff, 0xff, 0x7f, 0x00, 0x00, 0x00, 0x80 }, _memoryBuffer.Buffer.Span[0..(sizeof(int) * 2)].ToArray());
+        _memoryBuffer.Position = 0;
+
+        Assert.AreEqual(sizeof(uint), _memoryBuffer.Write<uint>(uint.MaxValue));
+        Assert.AreEqual(sizeof(uint), _memoryBuffer.Write<uint>(uint.MinValue));
+        Assert.AreEqual(new byte[] { 0xff, 0xff, 0xff, 0xff, 0x00, 0x00, 0x00, 0x00 }, _memoryBuffer.Buffer.Span[0..(sizeof(uint) * 2)].ToArray());
+        _memoryBuffer.Position = 0;
+
+        Assert.AreEqual(sizeof(long), _memoryBuffer.Write<long>(long.MaxValue));
+        Assert.AreEqual(sizeof(long), _memoryBuffer.Write<long>(long.MinValue));
+        Assert.AreEqual(new byte[] { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x7f, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x80 }, _memoryBuffer.Buffer.Span[0..(sizeof(long) * 2)].ToArray());
+        _memoryBuffer.Position = 0;
+
+        Assert.AreEqual(sizeof(ulong), _memoryBuffer.Write<ulong>(ulong.MaxValue));
+        Assert.AreEqual(sizeof(ulong), _memoryBuffer.Write<ulong>(ulong.MinValue));
+        Assert.AreEqual(new byte[] { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 }, _memoryBuffer.Buffer.Span[0..(sizeof(ulong) * 2)].ToArray());
+        _memoryBuffer.Position = 0;
+
+        Assert.AreEqual(sizeof(short), _memoryBuffer.Write<short>(short.MaxValue));
+        Assert.AreEqual(sizeof(short), _memoryBuffer.Write<short>(short.MinValue));
+        Assert.AreEqual(new byte[] { 0xff, 0x7f, 0x00, 0x80 }, _memoryBuffer.Buffer.Span[0..(sizeof(short) * 2)].ToArray());
+        _memoryBuffer.Position = 0;
+
+        Assert.AreEqual(sizeof(ushort), _memoryBuffer.Write<ushort>(ushort.MaxValue));
+        Assert.AreEqual(sizeof(ushort), _memoryBuffer.Write<ushort>(ushort.MinValue));
+        Assert.AreEqual(new byte[] { 0xff, 0xff, 0x00, 0x00 }, _memoryBuffer.Buffer.Span[0..(sizeof(ushort) * 2)].ToArray());
+        _memoryBuffer.Position = 0;
+    }
+
     public class NumericalTestCase
     {
         public object Data { get; }
@@ -160,11 +194,6 @@ public class MemoryBufferTests
         foreach (var value in new NumericalTestData<T>(count))
             yield return value.SetName($"{testBaseName}({value.TestName})");
     }
-
-    //static IEnumerable<TestCaseData> StringData(string testBaseName, int count)
-    //{
-        
-    //}
 
     [TestCaseSource(nameof(ByteData), new object[] { nameof(TestWrite), 256 })]
     [TestCaseSource(nameof(CharData), new object[] { nameof(TestWrite), 256 })]

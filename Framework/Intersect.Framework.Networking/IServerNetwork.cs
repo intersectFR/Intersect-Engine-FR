@@ -7,4 +7,6 @@ namespace Intersect.Framework.Networking;
 public interface IServerNetwork
 {
     void Listen(ushort port = default);
+
+    void Disconnect(Id<Connection> connectionId, Message? message);
 }
