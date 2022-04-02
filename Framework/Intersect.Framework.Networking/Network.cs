@@ -3,7 +3,6 @@ using System.Buffers;
 using System.Collections.Generic;
 using System.Text;
 
-
 namespace Intersect.Framework.Networking;
 
 public abstract class Network : IDisposable, INetwork
@@ -24,10 +23,11 @@ public abstract class Network : IDisposable, INetwork
 
     public IReadOnlyList<Connection> Connections => throw new NotImplementedException();
 
-    
+    public Connection this[Id<Connection> connectionId] => throw new NotImplementedException();
+
     public virtual Message CreateMessage()
     {
-        return new Message(writable: _bufferPool.)
+        return new Message(writable: true);
     }
 
     protected virtual void Dispose(bool disposing)

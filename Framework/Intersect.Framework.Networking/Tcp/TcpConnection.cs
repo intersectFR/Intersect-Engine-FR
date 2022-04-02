@@ -9,7 +9,7 @@ internal class TcpConnection : Connection
     {
     }
 
-    public override bool TrySendData(ReadOnlySpan<byte> data)
+    public override bool TrySend(Message message)
     {
         throw new NotImplementedException();
     }

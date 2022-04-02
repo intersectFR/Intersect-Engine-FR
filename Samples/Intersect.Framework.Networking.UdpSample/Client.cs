@@ -41,14 +41,18 @@ internal class Client : SampleConnection
 
     protected override byte[] DoReceive(ref IPEndPoint? remoteEndPoint)
     {
-        var data = udpClient.Receive(ref remoteEndPoint);
-        var data = _socket.ReceiveFrom()
+        //var data = udpClient.Receive(ref remoteEndPoint);
+        var data = new byte[1500];
+        EndPoint refEndPoint = default!;
+        _ = _socket.ReceiveFrom(data, ref refEndPoint);
+        remoteEndPoint = refEndPoint as IPEndPoint;
         return data;
     }
 
     public override int Send(IPEndPoint? remoteEndPoint, ReadOnlySpan<byte> data)
     {
-        return udpClient.Send(data, remoteEndPoint);
+        //return udpClient.Send(data, remoteEndPoint);
+        throw new NotImplementedException();
     }
 
     protected override void OnReceive(IPEndPoint? remoteEndPoint, MemoryBuffer message)

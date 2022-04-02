@@ -31,7 +31,8 @@ internal class UdpConnection : Connection
 
     public override bool TrySend(Message message)
     {
-        var data = message._backingBuffer
+        var length = (int)message.Length;
+        var data = message._backingBuffer.GetReadSpan(length);
         Task<int> sendTask = _udpClient.SendAsync(data.ToArray(), length, _targetEndPoint);
         var sentBytes = sendTask.GetAwaiter().GetResult();
         return sentBytes == length;
