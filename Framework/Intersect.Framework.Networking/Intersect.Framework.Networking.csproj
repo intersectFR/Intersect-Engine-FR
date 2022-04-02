@@ -21,4 +21,10 @@
     <ProjectReference Include="..\Intersect.Framework.Memory\Intersect.Framework.Memory.csproj" />
   </ItemGroup>
 
+  <ItemGroup Label="Testing">
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
+      <_Parameter1>Intersect.Framework.Networking.UdpSample</_Parameter1>
+    </AssemblyAttribute>
+  </ItemGroup>
+
 </Project>

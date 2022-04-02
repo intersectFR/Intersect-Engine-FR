@@ -6,27 +6,33 @@ using Intersect.Framework.Memory.Buffers;
 
 namespace Intersect.Framework.Networking.UdpSample;
 
-internal class Client : Connection
+internal class Client : SampleConnection
 {
-    private UdpClient udpClient;
+    //private readonly Connection _connection;
+    //private UdpClient udpClient;
+    private Socket _socket;
     private IPEndPoint remoteEndPoint;
     private bool isRunning;
     private Thread thread;
 
     public Client(IPEndPoint endPoint) : base(nameof(Client))
     {
+        //_connection = new UdpConnection(default!, endPoint);
         remoteEndPoint = endPoint;
     }
 
     public Client Connect()
     {
+        //udpClient = new UdpClient
+        //{
+        //    DontFragment = false,
+        //};
 
-        udpClient = new UdpClient
-        {
-            DontFragment = false,
-        };
+        //udpClient.Connect(remoteEndPoint);
 
-        udpClient.Connect(remoteEndPoint);
+        _socket = new Socket(remoteEndPoint.AddressFamily, SocketType.Dgram, ProtocolType.Udp);
+
+        _socket.Connect(remoteEndPoint);
 
         Start();
 
@@ -36,6 +42,7 @@ internal class Client : Connection
     protected override byte[] DoReceive(ref IPEndPoint? remoteEndPoint)
     {
         var data = udpClient.Receive(ref remoteEndPoint);
+        var data = _socket.ReceiveFrom()
         return data;
     }
 

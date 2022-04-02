@@ -24,6 +24,12 @@ public abstract class Network : IDisposable, INetwork
 
     public IReadOnlyList<Connection> Connections => throw new NotImplementedException();
 
+    
+    public virtual Message CreateMessage()
+    {
+        return new Message(writable: _bufferPool.)
+    }
+
     protected virtual void Dispose(bool disposing)
     {
         if (!disposedValue)

@@ -6,7 +6,7 @@ using Intersect.Framework.Memory.Buffers;
 
 namespace Intersect.Framework.Networking.UdpSample;
 
-internal class Server : Connection
+internal class Server : SampleConnection
 {
     private UdpClient udpClient;
     private IPEndPoint localEndPoint;

@@ -5,7 +5,7 @@ using Intersect.Framework.Networking.Configuration;
 
 namespace Intersect.Framework.Networking.Udp;
 
-internal class UdpConnectionManager : ConnectionManager
+internal class UdpConnectionManager : ProtocolManager
 {
     private readonly Dictionary<IPEndPoint, UdpConnection> _connections;
 
@@ -40,6 +40,15 @@ internal class UdpConnectionManager : ConnectionManager
         _udpClients = udpClients;
     }
 
+    public override void Listen(CancellationToken cancellationToken)
+    {
+        var udpReceivers = _udpClients.Select(udpClient => new UdpReceiver(this, udpClient, cancellationToken));
+        foreach (var udpReceiver in udpReceivers)
+        {
+            _ = udpReceiver.Spawn();
+        }
+    }
+
     internal void OnReceive(UdpReceiveResult udpReceiveResult)
     {
         if (_connections.TryGetValue(udpReceiveResult.RemoteEndPoint, out var udpConnection))
@@ -52,16 +61,7 @@ internal class UdpConnectionManager : ConnectionManager
         }
     }
 
-    public override void Listen(CancellationToken cancellationToken)
-    {
-        var udpReceivers = _udpClients.Select(udpClient => new UdpReceiver(this, udpClient, cancellationToken));
-        foreach (var udpReceiver in udpReceivers)
-        {
-            _ = udpReceiver.Spawn();
-        }
-    }
-
-    public static async Task<ConnectionManager> Create(
+    public static async Task<ProtocolManager> Create(
         Network network,
         ConnectionConfiguration connectionConfiguration,
         CancellationToken cancellationToken)
@@ -118,5 +118,10 @@ internal class UdpConnectionManager : ConnectionManager
             remoteEndPoints: remoteEndPoints,
             remoteGenericEndPoint: remoteGenericEndPoint,
             udpClients: udpClients);
+    }
+
+    public override Connection CreateConnection(IPEndPoint remoteEndPoint)
+    {
+        throw new NotImplementedException();
     }
 }
