@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -15,6 +15,7 @@ namespace Intersect.Server.Web.RestApi.Configuration
 
     public struct CorsConfiguration
     {
+        public string Name { get; set; }
 
         public string Origin { get; set; }
 
@@ -29,6 +30,8 @@ namespace Intersect.Server.Web.RestApi.Configuration
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         [JsonConverter(typeof(SingleOrArrayConverter<string>))]
         public List<string> ExposedHeaders { get; set; }
+
+        public bool SupportsCredentials { get; set; }
 
     }
 

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Web.Http;
@@ -91,7 +91,7 @@ namespace Intersect.Server.Web.RestApi.Services
                         return true;
                     }
 
-                    return !(methodAuthorizationObject is bool methodAuthorized) || methodAuthorized;
+                    return methodAuthorizationObject is not bool methodAuthorized || methodAuthorized;
             }
 
             return true;

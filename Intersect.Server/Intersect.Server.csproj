@@ -15,6 +15,10 @@
     <AssemblyName>Intersect Server</AssemblyName>
   </PropertyGroup>
 
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+
   <PropertyGroup Condition="'$(Configuration.ToLower())' == 'nofody'">
     <DisableFody>true</DisableFody>
   </PropertyGroup>
@@ -109,6 +113,7 @@
     <PackageReference Include="Remotion.Linq" Version="2.2.0" />
     <PackageReference Include="SmartThreadPool.dll" Version="2.3.0" />
     <PackageReference Include="SQLitePCLRaw.bundle_green" Version="2.1.0-pre20220318192836" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.3.0" />
     <PackageReference Include="System.Text.Encodings.Web" Version="6.0.0" />
     <PackageReference Include="System.Text.Json" Version="6.0.2" />
   </ItemGroup>
