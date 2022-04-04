@@ -1,17 +1,16 @@
 <Project>
 
-    <PropertyGroup>
-        <IntersectRepoPath Condition="'$(IntersectRepoPath)' == ''">..</IntersectRepoPath>
-    </PropertyGroup>
+  <PropertyGroup>
+    <IntersectRepoPath Condition="'$(IntersectRepoPath)' == ''">$(MSBuildProjectDirectory)\..</IntersectRepoPath>
+  </PropertyGroup>
 
-    <Import Project=".\Intersect.props" />
+  <Import Project=".\Intersect.props" />
 
   <PropertyGroup>
     <IntersectProjectName>$(MSBuildProjectName.Substring(10))</IntersectProjectName>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(IntersectProjectName)' == 'Network' AND '$(Configuration.ToLower())' != ''">
-    <GenerateEachBuild Condition="'$(INTERSECT_GENERATE_EACH_BUILD)' != ''">true</GenerateEachBuild>
     <IntersectBuildingAssemblyFile>$(IntersectRepoPath)\Intersect.Building\bin\$(Configuration)\netstandard2.0\Intersect.Building.dll</IntersectBuildingAssemblyFile>
   </PropertyGroup>
 
